@@ -1,5 +1,36 @@
-venv/
-__pycache__/
-*.pyc
+# Environment variables (CRITICAL - NEVER COMMIT!)
 .env
-api_keys.txt
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite3
+
+# API Keys and Secrets
+*_keys.txt
+secrets.json
+credentials.json
