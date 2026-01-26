@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Dashboard - TJ Thapa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ Threat Intelligence Dashboard</h1>
+            <p>Check IP addresses and file hashes for malicious activity</p>
+        </header>
+
+        <div class="forms-container">
+            <!-- IP Address Checker -->
+            <div class="form-card">
+                <h2>IP Address Checker</h2>
+                <form action="/check-ip" method="POST">
+                    <input type="text" name="ip_address" placeholder="Enter IP (e.g., 8.8.8.8)" required>
+                    <button type="submit">Check IP</button>
+                </form>
+            </div>
+
+            <!-- File Hash Checker -->
+            <div class="form-card">
+                <h2>File Hash Checker</h2>
+                <form action="/check-hash" method="POST">
+                    <input type="text" name="file_hash" placeholder="Enter SHA-256 hash" required>
+                    <button type="submit">Check Hash</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {% if result %}
+        <div class="results">
+            {% if result.error %}
+                <div class="error-box">
+                    <h3>❌ Error</h3>
+                    <p>{{ result.error }}</p>
+                </div>
+            {% elif result.type == 'ip' %}
+                <div class="result-box {% if result.is_malicious %}malicious{% else %}safe{% endif %}">
+                    <h3>IP Address Results</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">IP Address:</span>
+                            <span class="value">{{ result.input }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Country:</span>
+                            <span class="value">{{ result.country }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Abuse Score:</span>
+                            <span class="value score">{{ result.abuse_score }}%</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Total Reports:</span>
+                            <span class="value">{{ result.reports }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Status:</span>
+                            <span class="value status">
+                                {% if result.is_malicious %}
+                                    🚨 MALICIOUS
+                                {% else %}
+                                    ✅ SAFE
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% elif result.type == 'hash' %}
+                <div class="result-box {% if result.is_malicious %}malicious{% else %}safe{% endif %}">
+                    <h3>File Hash Results</h3>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Hash:</span>
+                            <span class="value hash">{{ result.input[:32] }}...</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Malicious Detections:</span>
+                            <span class="value">{{ result.malicious }}/{{ result.total_scans }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Suspicious:</span>
+                            <span class="value">{{ result.suspicious }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Harmless:</span>
+                            <span class="value">{{ result.harmless }}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Status:</span>
+                            <span class="value status">
+                                {% if result.is_malicious %}
+                                    🚨 MALICIOUS
+                                {% else %}
+                                    ✅ SAFE
+                                {% endif %}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <footer>
+            <p>Created by Tejaswi (TJ) Thapa | Cybersecurity Portfolio Project</p>
+        </footer>
+    </div>
+</body>
+</html>
