@@ -119,14 +119,12 @@ Through this project, I gained hands-on experience with:
 - Error handling and user feedback
 - Git version control and documentation
 
-## 🚧 Future Enhancements
+## 🚧 Planned Enhancements
 
-- [ ] Add batch IP/hash scanning from CSV files
-- [ ] Implement result export (PDF/JSON)
-- [ ] Add historical search tracking
-- [ ] Integrate additional threat intelligence sources
-- [ ] Add domain reputation checking
-- [ ] Implement caching to reduce API calls
+- [ ] **Batch IOC scanning** - Upload CSV files with multiple IPs/hashes for bulk analysis
+- [ ] **Export reports** - Download results as JSON or PDF for documentation
+- [ ] **Domain reputation checking** - Expand coverage to include domain/URL analysis
+- [ ] **Search history dashboard** - Track and review past queries (requires database integration)
 
 ## 👤 Author
 
